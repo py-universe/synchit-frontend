@@ -19,27 +19,49 @@ export default createVuetify({
   icons: {
     iconfont: 'mdi',
   },
-  /*
-  lang: {
-    current: navigator.language,
-    locales: { ja, en },
-    t: (key, ...params) => i18n.t(key, params) as string,
-  },
-*/
+
   theme: {
-    options: {
-      themeCache: {
-        // https://vuetifyjs.com/features/theme/#section-30ad30e330c330b730e5
-        get: (key: VuetifyParsedTheme) => {
-          return localStorage.getItem(JSON.stringify(key));
-        },
-        set: (key: VuetifyParsedTheme, value: string) => {
-          localStorage.setItem(JSON.stringify(key), value);
-        },
+    themes: {
+      dark: {
+          // primary: '#FFDD93',
+          primary: '#FFC045',
+          background: '#222831',
+          error: '#d63031',
+          info: '#0984e3',
+          secondary: '#fdcb6e',
+          success: '#00cec9',
+          surface: '#6c5ce7',
+          warning: '#FFDD93',
+          text: '#FFD369',
       },
-      customProperties: true,
+      light: {
+        // primary: '#FFDD93',
+        primary: '#FFC045',
+        background: '#222831',
+        error: '#d63031',
+        info: '#0984e3',
+        secondary: '#fdcb6e',
+        success: '#00cec9',
+        surface: '#6c5ce7',
+        warning: '#FFDD93',
+        text: '#FFD369',
     },
+    },
+    dark: true,
+    // options: {
+    //   themeCache: {
+    //     // https://vuetifyjs.com/features/theme/#section-30ad30e330c330b730e5
+    //     get: (key: VuetifyParsedTheme) => {
+    //       return localStorage.getItem(JSON.stringify(key));
+    //     },
+    //     set: (key: VuetifyParsedTheme, value: string) => {
+    //       localStorage.setItem(JSON.stringify(key), value);
+    //     },
+    //   },
+    //   customProperties: true,
+    // },
   },
+  
 });
 
 /** Create Vuetify */

@@ -1,10 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+    <v-app-bar app color="primary--text">
       <v-app-bar-title>{{ title }}</v-app-bar-title>
       <v-spacer />
-      <v-btn icon @click="themeDark = !themeDark">
+      <v-btn icon @click="themeDark = !themeDark" color="primary">
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
       <v-progress-linear
@@ -13,36 +12,40 @@
         :value="progress"
         absolute
         bottom
-        color="primary accent-3"
+        color="primary"
       />
     </v-app-bar>
-
-    <v-navigation-drawer v-model="drawer" app>
-      <v-list link>
-        <v-list-item :to="{ name: 'Home' }">
-          <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item :to="{ name: 'About' }">
-          <v-list-item-icon>
-            <v-icon>mdi-information</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>About</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
 
     <v-main>
       <v-fade-transition mode="out-in">
         <router-view />
       </v-fade-transition>
     </v-main>
+
+    <v-bottom-navigation app
+      :value="value"
+      shift
+      grow
+    >
+      <v-btn color="primary--text">
+        <span>Home</span>
+        <v-icon>mdi-home-circle</v-icon>
+      </v-btn>
+
+      <v-btn color="primary--text">
+        <span>New Room</span>
+        <v-icon>mdi-forum-plus</v-icon>
+      </v-btn>
+
+      <v-btn color="primary--text">
+        <span>Account</span>
+        <v-icon>mdi-account-circle</v-icon>
+      </v-btn>
+      <!-- <v-btn color="primary--text">
+        <span>Notifications</span>
+        <v-icon>mdi-bell-badge</v-icon>
+      </v-btn> -->
+    </v-bottom-navigation>
 
     <v-overlay v-show="loading" z-index="999">
       <v-progress-circular indeterminate size="64" />
@@ -118,7 +121,7 @@ export default defineComponent({
     const snackbar: Ref<boolean> = ref(false);
     /** current page name */
     const name: Ref<string | null | undefined> = ref(route?.name);
-
+    const value: Ref<Number> = ref(1);
     /** Snackbar text */
     const snackbarText: Ref<string> = computed({
       get: () => store.getters.message,
@@ -187,6 +190,7 @@ export default defineComponent({
       loading,
       error,
       themeDark,
+      value,
     };
   },
 });
