@@ -24,7 +24,7 @@ export default createVuetify({
     themes: {
       dark: {
           // primary: '#FFDD93',
-          primary: '#FFC045',
+          primary: '#fed163',
           background: '#222831',
           error: '#d63031',
           info: '#0984e3',
@@ -33,10 +33,11 @@ export default createVuetify({
           surface: '#6c5ce7',
           warning: '#FFDD93',
           text: '#FFD369',
+          dominant: '#fed163',
       },
       light: {
         // primary: '#FFDD93',
-        primary: '#FFC045',
+        primary: '#6929cc',
         background: '#222831',
         error: '#d63031',
         info: '#0984e3',
@@ -45,6 +46,7 @@ export default createVuetify({
         surface: '#6c5ce7',
         warning: '#FFDD93',
         text: '#FFD369',
+        dominant: '#6929cc',
     },
     },
     dark: true,
@@ -61,7 +63,7 @@ export default createVuetify({
     //   customProperties: true,
     // },
   },
-  
+
 });
 
 /** Create Vuetify */

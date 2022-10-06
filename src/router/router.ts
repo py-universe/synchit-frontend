@@ -12,22 +12,32 @@ import type { VuetifyGoToTarget } from 'vuetify/types/services/goto';
 import goTo from 'vuetify/lib/services/goto';
 import store from '@/store';
 
+import HomePage from '@/views/Home/HomePage.vue'
+import About from '@/views/Misc/AboutPage.vue'
+import ErrorPage from '@/views/Misc/ErrorPage.vue'
+import Auth from '@/views/Auth/Auth.vue'
+
 /** Router Config */
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('@/views/HomePage.vue'),
+    name: 'home',
+    component: HomePage,
   },
   {
     path: '/about',
-    name: 'About',
-    component: () => import('@/views/AboutPage.vue'),
+    name: 'about',
+    component: About,
+  },
+  {
+    path: '/auth',
+    name: 'auth',
+    component: Auth,
   },
   {
     path: '*',
-    name: 'Error',
-    component: () => import('@/views/ErrorPage.vue'),
+    name: 'error',
+    component: ErrorPage,
   },
 ];
 

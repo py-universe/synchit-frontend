@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary--text">
+    <v-app-bar app color="dominant--text">
       <v-app-bar-title>{{ title }}</v-app-bar-title>
       <v-spacer />
-      <v-btn icon @click="themeDark = !themeDark" color="primary">
+      <v-btn icon @click="themeDark = !themeDark" color="dominant">
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
       <v-progress-linear
@@ -12,7 +12,7 @@
         :value="progress"
         absolute
         bottom
-        color="primary"
+        color="dominant"
       />
     </v-app-bar>
 
@@ -27,20 +27,21 @@
       shift
       grow
     >
-      <v-btn color="primary--text">
+      <v-btn color="dominant--text">
         <span>Home</span>
         <v-icon>mdi-home-circle</v-icon>
       </v-btn>
 
-      <v-btn color="primary--text">
+      <v-btn color="dominant--text">
         <span>New Room</span>
         <v-icon>mdi-forum-plus</v-icon>
       </v-btn>
 
-      <v-btn color="primary--text">
+      <v-btn color="dominant--text">
         <span>Account</span>
         <v-icon>mdi-account-circle</v-icon>
       </v-btn>
+
       <!-- <v-btn color="primary--text">
         <span>Notifications</span>
         <v-icon>mdi-bell-badge</v-icon>
@@ -59,7 +60,7 @@
     >
       {{ snackbarText }}
       <template #action="{ attrs }">
-        <v-btn color="primary" icon v-bind="attrs" @click="snackbar = false">
+        <v-btn color="dominant" icon v-bind="attrs" @click="snackbar = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </template>
@@ -207,38 +208,7 @@ html {
   scrollbar-color: map-get($grey, 'lighten-2') map-get($grey, 'base');
 }
 
-::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 0.5rem;
+a{
+  text-decoration: none !important;
 }
-
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 0.5rem rgba(0, 0, 0, 0.1);
-  background-color: map-get($grey, 'lighten-2');
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 0.5rem;
-  background-color: map-get($grey, 'base');
-  box-shadow: inset 0 0 0.5rem rgba(0, 0, 0, 0.1);
-}
-
-/*
-// Color scheme of scroll bar according to the theme
-.theme-- {
-  &light {
-    scrollbar-color: map-get($grey, 'lighten-2') map-get($grey, 'base');
-    ::-webkit-scrollbar-track {
-      background-color: map-get($grey, 'lighten-2');
-    }
-  }
-  &dark {
-    scrollbar-color: map-get($grey, 'darken-2') map-get($grey, 'base');
-
-    ::-webkit-scrollbar-track {
-      background-color: map-get($grey, 'darken-2');
-    }
-  }
-}
-*/
 </style>
