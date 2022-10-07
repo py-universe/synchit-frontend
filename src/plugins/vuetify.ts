@@ -23,8 +23,8 @@ export default createVuetify({
   theme: {
     themes: {
       dark: {
-          // primary: '#FFDD93',
-          primary: '#fed163',
+          // primary: '#fed163',
+          primary: '#b390e9',
           background: '#222831',
           error: '#d63031',
           info: '#0984e3',
@@ -33,7 +33,7 @@ export default createVuetify({
           surface: '#6c5ce7',
           warning: '#FFDD93',
           text: '#FFD369',
-          dominant: '#fed163',
+          dominant: '#b390e9',
       },
       light: {
         // primary: '#FFDD93',
