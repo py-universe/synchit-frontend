@@ -34,6 +34,7 @@
     <v-btn
       :disabled="!state.valid"
       class="primary btn-block"
+      @click="login"
     >
       submit
     </v-btn>
@@ -41,39 +42,64 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive } from 'vue';
+import { apiService } from '@/utils/apiService';
 
 
-  export default defineComponent({
-    components: {
+export default defineComponent({
+  components: {},
+  props: {},
 
-    },
+  setup(props) {
 
-    props: {
+    const state = reactive({
+      show: false,
+      valid: false,
+      passowrd: '',
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v => v.length >= 6 || 'Min 6 characters',
+      ],
+      email: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+    });
 
-    },
+    const login= () => {
+      const userLoginUrl = `api/v1/auth/login`;
+      const method = "POST";
 
-    setup(props) {
+      const payload = {
+        "email": state.email,
+        "password": state.email
+      }
 
-      const state = reactive({
-        show: false,
-        valid: false,
-        passowrd: '',
-        passwordRules: [
-          v => !!v || 'Password is required',
-          v => v.length >= 6 || 'Min 6 characters',
-        ],
-        email: '',
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => /.+@.+/.test(v) || 'E-mail must be valid',
-        ],
-      });
-
-      return {
-        state
-      };
+      apiService(userLoginUrl, method, payload)
+        .then(data => {
+          console.log("User Logged In: ", data)
+            // let payload = {
+            //   authToken: data.token,
+            //   userId: data.id,
+            //   username: data.username
+            // };
+            // this.$store.dispatch("joinAction", payload);
+            // this.isLoading = false;
+            // this.$router.push({
+            //   name: "home"
+            // });
+        })
+        .catch(error => {
+          console.log(`User not created due to: ${error}`)
+        });
     }
 
-  });
+    return {
+      state,
+      login
+    }
+  }
+
+});
 </script>
