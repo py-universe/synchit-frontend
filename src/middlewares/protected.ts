@@ -4,7 +4,6 @@
 // } from 'vue-router'
 // import store from '@/store'
 
-
 // export default (
 //   to: RouteLocationNormalized,
 //   from: RouteLocationNormalized,
@@ -17,4 +16,4 @@
 //   }
 // }
 
-export {}
+export {};

@@ -1,9 +1,7 @@
 <template>
   <v-card color="basil">
     <v-card-title class="text-center justify-center py-6">
-      <h2 class="font-weight-bold">
-        Login or Signup
-      </h2>
+      <h2 class="font-weight-bold">Login or Signup</h2>
     </v-card-title>
 
     <v-tabs
@@ -12,13 +10,13 @@
       class="primary--text my-10"
       grow
     >
-      <v-tab> Login</v-tab>
-      <v-tab> Signup</v-tab>
+      <v-tab>Login</v-tab>
+      <v-tab>Signup</v-tab>
     </v-tabs>
 
     <v-tabs-items v-model="state.tab">
       <v-tab-item class="text-center justify-center py-6">
-          <LoginForm></LoginForm>
+        <LoginForm></LoginForm>
       </v-tab-item>
       <v-tab-item class="text-center justify-center py-6">
         <SignupForm></SignupForm>
@@ -32,27 +30,22 @@ import { defineComponent, reactive } from 'vue';
 import LoginForm from '@/components/Auth/LoginForm.vue';
 import SignupForm from '@/components/Auth/SignupForm.vue';
 
-
 export default defineComponent({
   components: {
     LoginForm,
-    SignupForm
+    SignupForm,
   },
 
-  props: {
-
-  },
+  props: {},
 
   setup(props) {
-
     const state = reactive({
-      tab: null
+      tab: null,
     });
 
     return {
-      state
+      state,
     };
-  }
-
+  },
 });
 </script>

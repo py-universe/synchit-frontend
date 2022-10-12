@@ -3,7 +3,7 @@
     <v-app-bar app color="dominant--text">
       <v-app-bar-title>{{ title }}</v-app-bar-title>
       <v-spacer />
-      <v-btn icon @click="themeDark = !themeDark" color="dominant">
+      <v-btn icon color="dominant" @click="themeDark = !themeDark">
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
       <v-progress-linear
@@ -22,11 +22,7 @@
       </v-fade-transition>
     </v-main>
 
-    <v-bottom-navigation app
-      :value="value"
-      shift
-      grow
-    >
+    <v-bottom-navigation app :value="value" shift grow>
       <v-btn color="dominant--text">
         <span>Home</span>
         <v-icon>mdi-home-circle</v-icon>
@@ -208,7 +204,7 @@ html {
   scrollbar-color: map-get($grey, 'lighten-2') map-get($grey, 'base');
 }
 
-a{
+a {
   text-decoration: none !important;
 }
 </style>

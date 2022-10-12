@@ -31,11 +31,7 @@
       @click:append="state.show = !state.show"
     ></v-text-field>
 
-    <v-btn
-      :disabled="!state.valid"
-      class="primary btn-block"
-      @click="login"
-    >
+    <v-btn :disabled="!state.valid" class="primary btn-block" @click="login">
       submit
     </v-btn>
   </v-form>
@@ -45,13 +41,11 @@
 import { defineComponent, reactive } from 'vue';
 import { apiService } from '@/utils/apiService';
 
-
 export default defineComponent({
   components: {},
   props: {},
 
   setup(props) {
-
     const state = reactive({
       show: false,
       valid: false,
@@ -67,39 +61,38 @@ export default defineComponent({
       ],
     });
 
-    const login= () => {
+    const login = () => {
       const userLoginUrl = `api/v1/auth/login`;
-      const method = "POST";
+      const method = 'POST';
 
       const payload = {
-        "email": state.email,
-        "password": state.email
-      }
+        email: state.email,
+        password: state.email,
+      };
 
       apiService(userLoginUrl, method, payload)
         .then(data => {
-          console.log("User Logged In: ", data)
-            // let payload = {
-            //   authToken: data.token,
-            //   userId: data.id,
-            //   username: data.username
-            // };
-            // this.$store.dispatch("joinAction", payload);
-            // this.isLoading = false;
-            // this.$router.push({
-            //   name: "home"
-            // });
+          console.log('User Logged In: ', data);
+          // let payload = {
+          //   authToken: data.token,
+          //   userId: data.id,
+          //   username: data.username
+          // };
+          // this.$store.dispatch("joinAction", payload);
+          // this.isLoading = false;
+          // this.$router.push({
+          //   name: "home"
+          // });
         })
         .catch(error => {
-          console.log(`User not created due to: ${error}`)
+          console.log(`User not created due to: ${error}`);
         });
-    }
+    };
 
     return {
       state,
-      login
-    }
-  }
-
+      login,
+    };
+  },
 });
 </script>

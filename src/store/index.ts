@@ -1,130 +1,22 @@
-import type {
-  ActionContext,
-  ActionTree,
-  GetterTree,
-  MutationTree,
-  StoreOptions,
-} from 'vuex';
+// Follow this tutorial to learn how to modularize the store
+// https://medium.com/swlh/building-large-scale-applications-with-vuex-6d7e8ce0dfef
+
+// Also follow this Stackoverflow link
+
+// https://stackoverflow.com/questions/64404599/how-to-modularize-vuex-into-different-folders-and-files
+
+import type { StoreOptions } from 'vuex';
 import { createStore } from '@logue/vue2-helpers/vuex';
 import VuexPersistence from 'vuex-persist';
+import type { RootState } from './state';
+import { state } from './state';
+import { getters } from './getters';
+import { mutations } from './mutations';
+import { actions } from './actions';
 
 // Modules
-import ConfigModule from './ConfigModule';
-
-/** Root State Interface */
-export interface RootState {
-  /* + Loading overlay */
-  loading: boolean;
-  /** ProgressBar Percentage */
-  progress: number;
-  /** SnackBar Text */
-  message?: string;
-  /** Error Message */
-  error?: string;
-}
-
-/** State Default value */
-const state: RootState = {
-  loading: false,
-  progress: 0,
-  message: undefined,
-  error: undefined,
-};
-
-/** Getters */
-const getters: GetterTree<RootState, RootState> = {
-  loading: (s): boolean => s.loading,
-  progress: (s): number => s.progress,
-  message: (s): string | undefined => s.message,
-  error: (s): string | undefined => s.error,
-};
-
-/** Mutations */
-const mutations: MutationTree<RootState> = {
-  /**
-   * Store loading
-   *
-   * @param s - Vuex state
-   * @param display - Payload
-   */
-  storeLoading(s, display: boolean) {
-    s.loading = display;
-  },
-  /**
-   * Store progress
-   *
-   * @param s - Vuex state
-   * @param progress - Payload
-   */
-  storeProgress(s, progress: number) {
-    s.progress = progress;
-    s.loading = true;
-  },
-  /**
-   * Store snackbar text
-   *
-   * @param s - Vuex state
-   * @param message - Payload
-   */
-  storeMessage(s, message: string) {
-    s.message = message;
-  },
-  /**
-   * Store error message
-   *
-   * @param s - Vuex state
-   * @param error - Payload
-   */
-  storeError(s, error: string) {
-    s.error = error;
-  },
-};
-
-/** Actions */
-const actions: ActionTree<RootState, RootState> = {
-  /**
-   * Loading overlay visibility
-   *
-   * @param context - Vuex Context
-   * @param display - Visibility
-   */
-  setLoading(
-    context: ActionContext<RootState, RootState>,
-    display: boolean = false
-  ) {
-    context.commit('storeLoading', display);
-  },
-  /**
-   * Loading progress bar value
-   *
-   * @param context - Vuex Context
-   * @param progress - Percentage(0~100)
-   */
-  setProgress(
-    context: ActionContext<RootState, RootState>,
-    progress: number = 0
-  ) {
-    context.commit('storeProgress', progress);
-  },
-  /**
-   * Set snackbar message.
-   *
-   * @param context - Vuex Context
-   * @param message - Message text
-   */
-  setMessage(context: ActionContext<RootState, RootState>, message?: string) {
-    context.commit('storeMessage', message);
-  },
-  /**
-   * Set Error message
-   *
-   * @param context - Vuex Context
-   * @param error - Error message etc.
-   */
-  setError(context: ActionContext<RootState, RootState>, error) {
-    context.commit('storeError', error);
-  },
-};
+import ConfigModule from './modules/config';
+import UserModule from './modules/user';
 
 /** VuexStore */
 const store: StoreOptions<RootState> = {
@@ -136,6 +28,7 @@ const store: StoreOptions<RootState> = {
   actions,
   modules: {
     ConfigModule,
+    UserModule,
   },
   plugins: [
     new VuexPersistence({
@@ -143,19 +36,6 @@ const store: StoreOptions<RootState> = {
       storage: window.localStorage,
       modules: ['ConfigModule'],
     }).plugin,
-    /*
-    // store as session storage
-    new VuexPersistence({
-      key: import.meta.env.VITE_APP_WEBSTORAGE_NAMESPACE,
-      storage: window.sessionStorage,
-      modules: ['SomeModule'],
-    }).plugin,
-    // store as Indexed DB (using vuex-persist-indexeddb)
-    createPersistedState({
-      key: import.meta.env.VITE_APP_WEBSTORAGE_NAMESPACE,
-      paths: ['SomeLargeModule'],
-    }),
-    */
   ],
 };
 

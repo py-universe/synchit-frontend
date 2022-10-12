@@ -55,19 +55,12 @@
 import { defineComponent, reactive } from 'vue';
 import { apiService } from '@/utils/apiService';
 
-
-
 export default defineComponent({
-    components: {
+  components: {},
 
-    },
-
-    props: {
-
-    },
+  props: {},
 
   setup(props) {
-
     const state = reactive({
       show: false,
       valid: false,
@@ -82,24 +75,22 @@ export default defineComponent({
         v => /.+@.+/.test(v) || 'E-mail must be valid',
       ],
       username: '',
-      usernameRules: [
-        v => !!v || 'Username is required'
-      ],
+      usernameRules: [v => !!v || 'Username is required'],
     });
 
-    const createUser= () => {
+    const createUser = () => {
       let createUserUrl = `api/v1/auth/signup`;
-      let method = "POST";
+      let method = 'POST';
 
       const payload = {
-        "email": state.email,
-        "password": state.email,
-        "display_name": state.username
-      }
+        email: state.email,
+        password: state.email,
+        display_name: state.username,
+      };
 
       apiService(createUserUrl, method, payload)
         .then(data => {
-          console.log("User Successfully created: ", data)
+          console.log('User Successfully created: ', data);
           // let payload = {
           //   authToken: data.token,
           //   userId: data.id,
@@ -112,15 +103,14 @@ export default defineComponent({
           // });
         })
         .catch(error => {
-          console.log(`User not created due to: ${error}`)
+          console.log(`User not created due to: ${error}`);
         });
-    }
+    };
 
     return {
       state,
-      createUser
+      createUser,
     };
-  }
-
+  },
 });
 </script>
