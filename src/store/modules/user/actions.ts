@@ -4,21 +4,33 @@ import type { RootState } from '@/store/state';
 
 /** Action */
 export const actions: ActionTree<UserState, RootState> = {
-  /**
-   * Switch Dark/Light mode.
-   *
-   * @param context - Vuex Context
-   */
-  setThemeDark(context: ActionContext<UserState, RootState>, mode: boolean) {
-    context.commit('storeThemeDark', mode);
+  modifyAuthStateAction(context: ActionContext<UserState, RootState>, payload) {
+    context.commit('modifyAuthState', payload);
   },
-  /**
-   * Change locale.
-   *
-   * @param context - Vuex Context
-   * @param locale - Locale code
-   */
-  setLocale(context: ActionContext<UserState, RootState>, locale: string) {
-    context.commit('storeLocale', locale);
+
+  modifyUserIdAction(context: ActionContext<UserState, RootState>, payload) {
+    context.commit('modifyUserId', payload);
+  },
+
+  modifyAccessTokenAction(
+    context: ActionContext<UserState, RootState>,
+    payload
+  ) {
+    context.commit('modifyAccessToken', payload);
+  },
+
+  modifyRefreshTokenAction(
+    context: ActionContext<UserState, RootState>,
+    payload
+  ) {
+    context.commit('modifyRefreshToken', payload);
+  },
+
+  logoutAction(context: ActionContext<UserState, RootState>) {
+    context.commit('logout');
+  },
+
+  loginAction: (context: ActionContext<UserState, RootState>, payload) => {
+    context.commit('login', payload);
   },
 };

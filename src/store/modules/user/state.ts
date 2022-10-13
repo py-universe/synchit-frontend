@@ -1,19 +1,17 @@
 /** Root State Interface */
 export interface UserState {
-  /* + Loading overlay */
-  loading: boolean;
-  /** ProgressBar Percentage */
-  progress: number;
-  /** SnackBar Text */
-  message?: string;
-  /** Error Message */
-  error?: string;
+  isAuthenticated: boolean;
+  userId: string;
+  accessToken: string;
+  refreshToken: string;
+  username: string;
 }
 
 /** State Default value */
 export const state: UserState = {
-  loading: false,
-  progress: 0,
-  message: undefined,
-  error: undefined,
+  isAuthenticated: false,
+  userId: '',
+  accessToken: '',
+  refreshToken: '',
+  username: ' ',
 };

@@ -18,6 +18,7 @@ import { actions } from './actions';
 import ConfigModule from './modules/config';
 import UserModule from './modules/user';
 
+
 /** VuexStore */
 const store: StoreOptions<RootState> = {
   // https://vuex.vuejs.org/guide/strict.html#development-vs-production
@@ -28,7 +29,7 @@ const store: StoreOptions<RootState> = {
   actions,
   modules: {
     ConfigModule,
-    UserModule,
+    user: UserModule,
   },
   plugins: [
     new VuexPersistence({

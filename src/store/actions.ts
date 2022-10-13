@@ -1,6 +1,7 @@
 import type { ActionContext, ActionTree } from 'vuex';
 import type { RootState } from './state';
 
+
 /** Actions */
 export const actions: ActionTree<RootState, RootState> = {
   /**
