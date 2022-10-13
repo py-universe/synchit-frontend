@@ -39,6 +39,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
+import { useStore } from '@logue/vue2-helpers/vuex';
 import { apiService } from '@/utils/apiService';
 
 export default defineComponent({
@@ -46,6 +47,9 @@ export default defineComponent({
   props: {},
 
   setup(props) {
+    /** Vuex */
+    const store = useStore();
+
     const state = reactive({
       show: false,
       valid: false,
@@ -73,16 +77,15 @@ export default defineComponent({
       apiService(userLoginUrl, method, payload)
         .then(data => {
           console.log('User Logged In: ', data);
-          // let payload = {
-          //   authToken: data.token,
-          //   userId: data.id,
-          //   username: data.username
-          // };
-          // this.$store.dispatch("joinAction", payload);
-          // this.isLoading = false;
-          // this.$router.push({
-          //   name: "home"
-          // });
+          const payload = {
+            accessToken: data.accessToken,
+            refreshToken: data.refreshToken,
+            userId: data.id,
+            username: data.username,
+          };
+
+          // Update authentication state
+          store.dispatch('user/login', payload);
         })
         .catch(error => {
           console.log(`User not created due to: ${error}`);

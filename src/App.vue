@@ -139,8 +139,8 @@ export default defineComponent({
 
     /** Toggle Theme Dark/Light mode */
     const themeDark: Ref<boolean> = computed({
-      get: () => store.getters['ConfigModule/themeDark'],
-      set: v => store.dispatch('ConfigModule/setThemeDark', v),
+      get: () => store.getters['config/themeDark'],
+      set: v => store.dispatch('config/setThemeDark', v),
     });
 
     /** Error Message */
