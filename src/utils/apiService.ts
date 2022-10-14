@@ -1,13 +1,14 @@
-import { useStore } from '@logue/vue2-helpers/vuex';
-
+import store from '../store/index';
 const API_URL = 'http://127.0.0.1:8000';
 
 /**
  *
  */
 async function apiService(endpoint, method, data) {
-  const store = useStore();
-  const TKN = store.state.user.accessToken;
+  console.log('API SERVICE FUNCTION INVOKED');
+  const TKN = store.getters['user/accessToken'];
+
+  console.log('VUEX STORE INITIALIZED');
 
   let token = '';
 

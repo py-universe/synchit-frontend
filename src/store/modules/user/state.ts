@@ -4,7 +4,7 @@ export interface UserState {
   userId: string;
   accessToken: string;
   refreshToken: string;
-  username: string;
+  displayName: string;
 }
 
 /** State Default value */
@@ -13,5 +13,5 @@ export const state: UserState = {
   userId: '',
   accessToken: '',
   refreshToken: '',
-  username: ' ',
+  displayName: ' ',
 };

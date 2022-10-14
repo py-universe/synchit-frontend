@@ -24,19 +24,20 @@ export const mutations: MutationTree<UserState> = {
     state.accessToken = '';
     state.refreshToken = '';
     state.userId = '';
-    state.username = '';
+    state.displayName = '';
   },
 
   login: (state, payload) => {
-    const accessToken = payload['accessToken'];
-    const refreshToken = payload['refreshToken'];
-    const userId = payload['userId'];
-    const username = payload['username'];
+    const accessToken = payload.access_token;
+    const refreshToken = payload.refresh_token;
+    const userId = payload.uid;
+    const displayName = payload.display_name;
 
     state.isAuthenticated = true;
     state.accessToken = accessToken;
     state.refreshToken = refreshToken;
     state.userId = userId;
-    state.username = username;
+    state.displayName = displayName;
+    // then do all the route change here... router.push()
   },
 };

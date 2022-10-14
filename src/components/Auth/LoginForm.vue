@@ -18,7 +18,6 @@
 
     <v-text-field
       v-model="state.passowrd"
-      :counter="6"
       :append-icon="state.show ? 'mdi-eye' : 'mdi-eye-off'"
       :type="state.show ? 'text' : 'password'"
       :rules="state.passwordRules"
@@ -77,18 +76,12 @@ export default defineComponent({
       apiService(userLoginUrl, method, payload)
         .then(data => {
           console.log('User Logged In: ', data);
-          const payload = {
-            accessToken: data.accessToken,
-            refreshToken: data.refreshToken,
-            userId: data.id,
-            username: data.username,
-          };
 
           // Update authentication state
-          store.dispatch('user/login', payload);
+          store.dispatch('user/loginAction', data);
         })
         .catch(error => {
-          console.log(`User not created due to: ${error}`);
+          console.log(`User not logged in due to: ${error}`);
         });
     };
 
