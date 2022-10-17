@@ -1,33 +1,30 @@
-import store from '../store/index';
-const API_URL = 'http://127.0.0.1:8000';
+import instance from './axiosInstance';
+import store from '@/store';
 
 /**
- *
+ * Learn how to refresh tokens with axios interceptors
+ * contains API calling utility functions
  */
 async function apiService(endpoint, method, data) {
-  console.log('API SERVICE FUNCTION INVOKED');
   const TKN = store.getters['user/accessToken'];
-
-  console.log('VUEX STORE INITIALIZED');
-
   let token = '';
 
   if (TKN !== undefined && TKN !== '' && TKN !== null) {
     token = `Token ${TKN}`;
   }
 
-  endpoint = `${API_URL}/${endpoint}`;
-
-  const response = await fetch(endpoint, {
+  const config = {
+    url: endpoint,
     method: method,
+    data: data !== undefined ? data : null,
+
     headers: {
-      'Content-Type': 'application/json',
+      'content-type': 'application/json',
       Authorization: token,
     },
-    body: data !== undefined ? JSON.stringify(data) : null,
-  });
+  };
 
-  return response.json();
+  return instance(config).then(response => response.data);
 }
 
 export { apiService };

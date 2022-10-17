@@ -26,6 +26,13 @@ export const actions: ActionTree<UserState, RootState> = {
     context.commit('modifyRefreshToken', payload);
   },
 
+  refreshAccessTokenAction(
+    context: ActionContext<UserState, RootState>,
+    payload
+  ) {
+    context.commit('refreshAccessToken', payload);
+  },
+
   logoutAction(context: ActionContext<UserState, RootState>) {
     context.commit('logout');
   },

@@ -19,6 +19,11 @@ export const mutations: MutationTree<UserState> = {
     state.refreshToken = payload;
   },
 
+  refreshAccessToken: (state, accessToken) => {
+    state.isAuthenticated = true;
+    state.accessToken = accessToken;
+  },
+
   logout: state => {
     state.isAuthenticated = false;
     state.accessToken = '';

@@ -16,10 +16,10 @@
 
     <v-tabs-items v-model="state.tab">
       <v-tab-item class="text-center justify-center py-6">
-        <LoginForm></LoginForm>
+        <LoginForm />
       </v-tab-item>
       <v-tab-item class="text-center justify-center py-6">
-        <SignupForm></SignupForm>
+        <SignupForm />
       </v-tab-item>
     </v-tabs-items>
   </v-card>

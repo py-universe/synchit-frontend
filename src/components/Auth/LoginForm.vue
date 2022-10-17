@@ -5,6 +5,7 @@
     lazy-validation
     class="text-center justify-center px-10"
   >
+    <!-- // eslint-disable-next-line vue/html-self-closing -->
     <v-text-field
       v-model="state.email"
       :rules="state.emailRules"
@@ -16,6 +17,7 @@
       dense
     ></v-text-field>
 
+    <!-- // eslint-disable-next-line vue/html-self-closing -->
     <v-text-field
       v-model="state.passowrd"
       :append-icon="state.show ? 'mdi-eye' : 'mdi-eye-off'"
