@@ -1,19 +1,17 @@
-// import type {
-//   NavigationGuardNext,
-//   RouteLocationNormalized
-// } from 'vue-router'
-// import store from '@/store'
+import store from '@/store';
 
-// export default (
-//   to: RouteLocationNormalized,
-//   from: RouteLocationNormalized,
-//   next: NavigationGuardNext
-// ): void => {
-//   if (store.getters.getAuth) {
-//     next()
-//   } else {
-//     next('/')
-//   }
-// }
+/**
+ * protect necessary routes
+ * contains API calling utility functions
+ */
+function guardMyroute(to, from, next) {
+  const isAuthenticated = store.getters['user/isAuthenticated'];
+  console.log('AUTHENTICATED? :', isAuthenticated);
+  if (isAuthenticated) {
+    next(); // allow to enter route
+  } else {
+    next('/auth'); // go to '/login';
+  }
+}
 
-export {};
+export { guardMyroute };

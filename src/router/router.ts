@@ -16,6 +16,7 @@ import HomePage from '@/views/Home/HomePage.vue';
 import About from '@/views/Misc/AboutPage.vue';
 import ErrorPage from '@/views/Misc/ErrorPage.vue';
 import Auth from '@/views/Auth/Auth.vue';
+import { guardMyroute } from '@/middlewares/protected';
 
 /** Router Config */
 const routes: RouteRecordRaw[] = [
@@ -27,6 +28,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/about',
     name: 'about',
+    beforeEnter: guardMyroute,
     component: About,
   },
   {
