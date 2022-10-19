@@ -32,7 +32,7 @@
       @click:append="state.show = !state.show"
     ></v-text-field>
 
-    <v-btn :disabled="!state.valid" class="primary btn-block" @click="login">
+    <v-btn block :disabled="!state.valid" class="primary btn-block" @click="login">
       submit
     </v-btn>
   </v-form>

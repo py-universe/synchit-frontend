@@ -2,6 +2,7 @@ import type { ActionContext, ActionTree } from 'vuex';
 import type { UserState } from './state';
 import type { RootState } from '@/store/state';
 
+
 /** Action */
 export const actions: ActionTree<UserState, RootState> = {
   modifyAuthStateAction(context: ActionContext<UserState, RootState>, payload) {

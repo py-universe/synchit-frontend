@@ -16,6 +16,47 @@
       />
     </v-app-bar>
 
+    <v-navigation-drawer
+      v-model="drawer" app
+      absolute
+      right
+      temporary
+    >
+      <v-list v-if="isAuthenticated" link>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="text-h6">
+                {{ displayName }}
+            </v-list-item-title>
+            <v-list-item-subtitle>nyior@nyior.com</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item class="my-10 py-10">
+          <v-btn block color="dominant" @click="logout">
+            Logout
+          </v-btn>
+        </v-list-item>
+      </v-list>
+
+      <v-list  v-else link>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="text-h6">
+                Not Logged In
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              click continue to login or signup
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item class="my-10 py-10" link :to="{ name: 'auth' }">
+          <v-btn block color="dominant">
+            Continue
+          </v-btn>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
     <v-main>
       <v-fade-transition mode="out-in">
         <router-view />
@@ -23,25 +64,20 @@
     </v-main>
 
     <v-bottom-navigation app :value="value" shift grow>
-      <v-btn color="dominant--text">
+      <v-btn color="dominant--text" :to="{ name: 'home' }">
         <span>Home</span>
         <v-icon>mdi-home-circle</v-icon>
       </v-btn>
 
-      <v-btn color="dominant--text">
+      <v-btn color="dominant--text" :to="{ name: 'about' }">
         <span>New Room</span>
         <v-icon>mdi-forum-plus</v-icon>
       </v-btn>
 
-      <v-btn color="dominant--text">
+      <v-btn color="dominant--text" @click.stop="drawer = !drawer">
         <span>Account</span>
         <v-icon>mdi-account-circle</v-icon>
       </v-btn>
-
-      <!-- <v-btn color="primary--text">
-        <span>Notifications</span>
-        <v-icon>mdi-bell-badge</v-icon>
-      </v-btn> -->
     </v-bottom-navigation>
 
     <v-overlay v-show="loading" z-index="999">
@@ -146,6 +182,16 @@ export default defineComponent({
     /** Error Message */
     const error: ComputedRef<boolean> = computed(() => store.getters.error);
 
+    /** Is user logged in? */
+    const isAuthenticated: Ref<boolean> = computed(
+      () => store.getters['user/isAuthenticated']
+    );
+
+    /** User Display Name */
+    const displayName: Ref<String> = computed(
+      () => store.getters['user/displayName']
+    );
+
     /** Modify snackbar text */
     watch(snackbarText, () => (snackbar.value = true));
 
@@ -171,6 +217,11 @@ export default defineComponent({
       }
     });
 
+    const logout = () => {
+      // Update authentication state
+      store.dispatch('user/logoutAction');
+    };
+
     /** Run once. */
     onMounted(() => {
       document.title = title.value;
@@ -188,6 +239,9 @@ export default defineComponent({
       error,
       themeDark,
       value,
+      isAuthenticated,
+      displayName,
+      logout,
     };
   },
 });

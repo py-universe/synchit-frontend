@@ -45,6 +45,7 @@
     ></v-text-field>
 
     <v-btn
+      block
       :disabled="!state.valid"
       class="primary btn-block"
       @click="createUser"
