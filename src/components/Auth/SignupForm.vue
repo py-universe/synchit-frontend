@@ -5,6 +5,7 @@
     lazy-validation
     class="text-center justify-center px-10"
   >
+    <!-- // eslint-disable-next-line vue/html-self-closing -->
     <v-text-field
       v-model="state.email"
       :rules="state.emailRules"
@@ -16,9 +17,9 @@
       dense
     ></v-text-field>
 
+    <!-- // eslint-disable-next-line vue/html-self-closing -->
     <v-text-field
-      v-model="state.passowrd"
-      :counter="6"
+      v-model="state.password"
       :append-icon="state.show ? 'mdi-eye' : 'mdi-eye-off'"
       :type="state.show ? 'text' : 'password'"
       :rules="state.passwordRules"
@@ -31,24 +32,23 @@
       @click:append="state.show = !state.show"
     ></v-text-field>
 
+    <!-- // eslint-disable-next-line vue/html-self-closing -->
     <v-text-field
-      v-model="state.passowrd"
-      :counter="6"
-      :append-icon="state.show ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="state.show ? 'text' : 'password'"
-      :rules="state.passwordRules"
-      label="Password-2"
+      v-model="state.username"
+      :rules="state.usernameRules"
+      label="Username"
       required
       outlined
       clearable
       color="primary"
       dense
-      @click:append="state.show = !state.show"
     ></v-text-field>
 
     <v-btn
+      block
       :disabled="!state.valid"
       class="primary btn-block"
+      @click="createUser"
     >
       submit
     </v-btn>
@@ -56,39 +56,67 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive } from 'vue';
+import { apiService } from '@/utils/apiService';
+import { useStore } from '@logue/vue2-helpers/vuex';
+import { useRouter, useRoute } from 'vue-router/composables';
 
+export default defineComponent({
+  components: {},
 
-  export default defineComponent({
-    components: {
+  props: {},
 
-    },
+  setup(props) {
+    const store = useStore();
+    /** Router */
+    const router = useRouter();
+    /** Router */
+    const route = useRoute();
 
-    props: {
+    const state = reactive({
+      show: false,
+      valid: false,
+      password: '',
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v => v.length >= 6 || 'Min 6 characters',
+      ],
+      email: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+      username: '',
+      usernameRules: [v => !!v || 'Username is required'],
+    });
 
-    },
+    const createUser = () => {
+      const createUserUrl = `api/v1/auth/signup`;
+      const method = 'POST';
 
-    setup(props) {
-
-      const state = reactive({
-        show: false,
-        valid: false,
-        passowrd: '',
-        passwordRules: [
-          v => !!v || 'Password is required',
-          v => v.length >= 6 || 'Min 6 characters',
-        ],
-        email: '',
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => /.+@.+/.test(v) || 'E-mail must be valid',
-        ],
-      });
-
-      return {
-        state
+      const payload = {
+        email: state.email,
+        password: state.email,
+        display_name: state.username,
       };
-    }
 
-  });
+      apiService(createUserUrl, method, payload)
+        .then(data => {
+          console.log('User Successfully created: ', data);
+
+          // Update authentication state
+          store.dispatch('user/loginAction', data);
+          router.push('/')
+        })
+        .catch(error => {
+          console.log(`User not created due to: ${error}`);
+        });
+    };
+
+    return {
+      state,
+      createUser,
+    };
+  },
+});
 </script>

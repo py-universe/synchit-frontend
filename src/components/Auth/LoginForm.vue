@@ -5,6 +5,7 @@
     lazy-validation
     class="text-center justify-center px-10"
   >
+    <!-- // eslint-disable-next-line vue/html-self-closing -->
     <v-text-field
       v-model="state.email"
       :rules="state.emailRules"
@@ -16,9 +17,9 @@
       dense
     ></v-text-field>
 
+    <!-- // eslint-disable-next-line vue/html-self-closing -->
     <v-text-field
       v-model="state.passowrd"
-      :counter="6"
       :append-icon="state.show ? 'mdi-eye' : 'mdi-eye-off'"
       :type="state.show ? 'text' : 'password'"
       :rules="state.passwordRules"
@@ -31,49 +32,72 @@
       @click:append="state.show = !state.show"
     ></v-text-field>
 
-    <v-btn
-      :disabled="!state.valid"
-      class="primary btn-block"
-    >
+    <v-btn block :disabled="!state.valid" class="primary btn-block" @click="login">
       submit
     </v-btn>
   </v-form>
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive } from 'vue';
+import { useStore } from '@logue/vue2-helpers/vuex';
+import { useRouter, useRoute } from 'vue-router/composables';
+import { apiService } from '@/utils/apiService';
 
+export default defineComponent({
+  components: {},
+  props: {},
 
-  export default defineComponent({
-    components: {
+  setup(props) {
+    /** Vuex */
+    const store = useStore();
+    /** Router */
+    const router = useRouter();
+    /** Router */
+    const route = useRoute();
 
-    },
+    const state = reactive({
+      show: false,
+      valid: false,
+      passowrd: '',
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v => v.length >= 6 || 'Min 6 characters',
+      ],
+      email: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+    });
 
-    props: {
+    const login = () => {
+      const userLoginUrl = `api/v1/auth/login`;
+      const method = 'POST';
 
-    },
-
-    setup(props) {
-
-      const state = reactive({
-        show: false,
-        valid: false,
-        passowrd: '',
-        passwordRules: [
-          v => !!v || 'Password is required',
-          v => v.length >= 6 || 'Min 6 characters',
-        ],
-        email: '',
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => /.+@.+/.test(v) || 'E-mail must be valid',
-        ],
-      });
-
-      return {
-        state
+      const payload = {
+        email: state.email,
+        password: state.email,
       };
-    }
 
-  });
+      apiService(userLoginUrl, method, payload)
+        .then(data => {
+          console.log('User Logged In: ', data);
+
+          // Update authentication state
+          store.dispatch('user/loginAction', data);
+          // router.replace(route.query.redirect || '/');
+          router.replace('/');
+        })
+        .catch(error => {
+          console.log(`User not logged in due to: ${error}`);
+        });
+    };
+
+    return {
+      state,
+      login,
+    };
+  },
+});
 </script>
