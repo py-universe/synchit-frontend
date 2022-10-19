@@ -10,7 +10,9 @@ function guardMyroute(to, from, next) {
   if (isAuthenticated) {
     next(); // allow to enter route
   } else {
-    next('/auth'); // go to '/login';
+    // keep track of the route just before visiting the login page
+    const loginPath = window.location.pathname;
+    next({ name: 'auth', query: { redirect: loginPath } }); // go to '/login';
   }
 }
 

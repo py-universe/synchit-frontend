@@ -59,6 +59,7 @@
 import { defineComponent, reactive } from 'vue';
 import { apiService } from '@/utils/apiService';
 import { useStore } from '@logue/vue2-helpers/vuex';
+import { useRouter, useRoute } from 'vue-router/composables';
 
 export default defineComponent({
   components: {},
@@ -67,6 +68,10 @@ export default defineComponent({
 
   setup(props) {
     const store = useStore();
+    /** Router */
+    const router = useRouter();
+    /** Router */
+    const route = useRoute();
 
     const state = reactive({
       show: false,
@@ -101,6 +106,7 @@ export default defineComponent({
 
           // Update authentication state
           store.dispatch('user/loginAction', data);
+          router.push('/')
         })
         .catch(error => {
           console.log(`User not created due to: ${error}`);
